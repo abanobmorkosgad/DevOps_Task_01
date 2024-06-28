@@ -69,7 +69,7 @@ jobs:
 
       - name: Copy Docker files
         run: |
-          scp -r docker/* ubuntu@3.216.37.104:/home/ubuntu/docker
+          scp -i ~/.ssh/id_rsa -r docker/* ubuntu@3.216.37.104:/home/ubuntu/
 
       - name: SSH into machine and run Docker Compose
         uses: appleboy/ssh-action@master
