@@ -101,7 +101,7 @@ resource "aws_instance" "ec2" {
   key_name                    = "terraform"
 
   tags = {
-    Name = "EC2"
+    Name = "corstat"
   }
 }
 
@@ -110,7 +110,3 @@ resource "aws_eip_association" "eip_association" {
   allocation_id = aws_eip.eip.id
 }
 
-resource "local_file" "ip" {
-  filename = "ansible/inventory"
-  content  = "[ec2]\n${aws_eip.eip.public_ip}"
-}
