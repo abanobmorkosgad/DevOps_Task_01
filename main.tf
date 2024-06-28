@@ -89,7 +89,7 @@ resource "aws_security_group" "sg" {
   }
 }
 
-resource "aws_eip" "eip" {}
+# resource "aws_eip" "eip" {}
 
 resource "aws_instance" "ec2" {
   ami                         = var.ami
@@ -105,8 +105,8 @@ resource "aws_instance" "ec2" {
   }
 }
 
-resource "aws_eip_association" "eip_association" {
-  instance_id   = aws_instance.ec2.id
-  allocation_id = aws_eip.eip.id
-}
+# resource "aws_eip_association" "eip_association" {
+#   instance_id   = aws_instance.ec2.id
+#   allocation_id = aws_eip.eip.id
+# }
 
