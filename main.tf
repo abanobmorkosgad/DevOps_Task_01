@@ -4,7 +4,7 @@ terraform {
       source = "hashicorp/aws"
     }
   }
-  cloud {
+  backend "remote" {
     organization = "pwc_project"
 
     workspaces {
