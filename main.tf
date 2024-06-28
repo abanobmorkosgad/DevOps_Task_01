@@ -111,6 +111,6 @@ resource "aws_eip_association" "eip_association" {
 }
 
 resource "local_file" "ip" {
-  filename = "../ansible/inventory"
+  filename = "ansible/inventory"
   content  = "[ec2]\n${aws_eip.eip.public_ip}"
 }
