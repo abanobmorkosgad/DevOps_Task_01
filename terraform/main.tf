@@ -1,3 +1,18 @@
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+    }
+  }
+  cloud {
+    organization = "pwc_project"
+
+    workspaces {
+      name = "project_one"
+    }
+  }
+}
+
 provider "aws" {
   region = "us-east-1"
 }
@@ -76,13 +91,13 @@ resource "aws_security_group" "sg" {
 resource "aws_eip" "eip" {}
 
 resource "aws_instance" "ec2" {
-  ami           = var.ami
-  instance_type = var.instance_type
-  subnet_id     = aws_subnet.public_subnet.id
-  vpc_security_group_ids = [aws_security_group.sg.id]
-  availability_zone = var.availability_zone
+  ami                         = var.ami
+  instance_type               = var.instance_type
+  subnet_id                   = aws_subnet.public_subnet.id
+  vpc_security_group_ids      = [aws_security_group.sg.id]
+  availability_zone           = var.availability_zone
   associate_public_ip_address = true
-  key_name = "terraform"
+  key_name                    = "terraform"
 
   tags = {
     Name = "EC2"
@@ -95,6 +110,6 @@ resource "aws_eip_association" "eip_association" {
 }
 
 resource "local_file" "ip" {
-    filename = "../ansible/inventory"
-    content  = "[ec2]\n${aws_eip.eip.public_ip}"
+  filename = "../ansible/inventory"
+  content  = "[ec2]\n${aws_eip.eip.public_ip}"
 }
