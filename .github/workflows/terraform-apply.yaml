@@ -20,13 +20,12 @@ jobs:
               with:
                 cli_config_credentails_token: ${{ secrets.TFC_API_TOKEN }}
 
-            - name: terraform init
-              id: init
+            - name: Terraform Init
+              env:
+                TF_API_TOKEN: ${{ secrets.TFC_API_TOKEN }}
               run: terraform init
-
-            - name: terraform plan
-              id: plan
-              run: terraform plan
-
+    
             - name: Terraform Apply
+              env:
+                TF_API_TOKEN: ${{ secrets.TFC_API_TOKEN }}
               run: terraform apply -auto-approve
