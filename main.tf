@@ -5,6 +5,7 @@ terraform {
     }
   }
   backend "remote" {
+    hostname = "app.terraform.io"
     organization = "pwc_project"
 
     workspaces {
