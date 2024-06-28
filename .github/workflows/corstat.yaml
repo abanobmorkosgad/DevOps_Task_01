@@ -78,5 +78,5 @@ jobs:
           username: ubuntu
           key: ${{ secrets.PRIVATE_KEY }}
           script: |
-            cd /home/ubuntu/docker
-            sudo docker-compose up -d
+            cd /home/ubuntu/
+            docker-compose up -d
