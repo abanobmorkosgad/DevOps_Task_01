@@ -20,7 +20,6 @@ provider "aws" {
 
 resource "aws_vpc" "vpc" {
   cidr_block = var.vpc_cidr
-  enable_dns_hostnames = true
   tags = {
     Name = "VPC"
   }
@@ -102,7 +101,7 @@ resource "aws_instance" "ec2" {
   key_name                    = "terraform"
 
   tags = {
-    Name = "corstat"
+    Name = "EC2"
   }
 }
 
@@ -111,3 +110,7 @@ resource "aws_eip_association" "eip_association" {
   allocation_id = aws_eip.eip.id
 }
 
+resource "local_file" "ip" {
+  filename = "ansible/inventory"
+  content  = "[ec2]\n${aws_eip.eip.public_ip}"
+}

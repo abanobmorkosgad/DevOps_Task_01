@@ -30,7 +30,7 @@ jobs:
         run: terraform apply -auto-approve
 
   ansible:
-    name: "Ansible Playbook Execution"
+    name: "Ansible Playbook"
     runs-on: ubuntu-latest
     needs: terraform 
     steps:
@@ -47,10 +47,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y ansible
-          ansible-galaxy collection install amazon.aws
-          pip3 install boto3 botocore
 
       - name: Run Ansible Playbook
         run: |
             cd ansible
-            ansible-playbook -i inventory_aws_ec2.yaml playbook.yaml
+            ansible-playbook playbook.yaml
