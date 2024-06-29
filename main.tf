@@ -116,7 +116,7 @@ resource "aws_route53_zone" "domain" {
 
 resource "aws_route53_record" "main" {
   zone_id = aws_route53_zone.domain.zone_id
-  name    = "corstat.net"
+  name    = "www"
   type    = "A"
   ttl     = "300"
   records = [aws_eip.eip.public_ip]
