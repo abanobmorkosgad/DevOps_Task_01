@@ -116,20 +116,8 @@ resource "aws_route53_zone" "domain" {
 
 resource "aws_route53_record" "main" {
   zone_id = aws_route53_zone.domain.zone_id
-  name    = "corstat.net"
+  name    = "www.corstat.net"
   type    = "A"
   ttl     = "300"
   records = [aws_eip.eip.public_ip]
-}
-
-resource "aws_route53_record" "alias" {
-  zone_id = aws_route53_zone.domain.zone_id
-  name    = "www.corstat.net"
-  type    = "A"
-  
-  alias {
-    name    = aws_route53_record.main.fqdn
-    zone_id = aws_route53_record.main.zone_id
-    evaluate_target_health = true
-  }
 }
