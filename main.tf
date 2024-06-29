@@ -109,3 +109,15 @@ resource "aws_eip_association" "eip_association" {
   instance_id   = aws_instance.ec2.id
   allocation_id = aws_eip.eip.id
 }
+
+resource "aws_route53_zone" "domain" {
+  name = "corstat.net"
+}
+
+resource "aws_route53_record" "main" {
+  zone_id = aws_route53_zone.domain.zone_id
+  name    = "corstat.net"
+  type    = "A"
+  ttl     = "300"
+  records = [aws_eip.eip.public_ip]
+}
