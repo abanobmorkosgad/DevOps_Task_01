@@ -109,8 +109,3 @@ resource "aws_eip_association" "eip_association" {
   instance_id   = aws_instance.ec2.id
   allocation_id = aws_eip.eip.id
 }
-
-resource "local_file" "ip" {
-  filename = "ansible/inventory"
-  content  = "[ec2]\n${aws_eip.eip.public_ip}"
-}
