@@ -31,12 +31,13 @@ jobs:
 
       - name: Get Elastic IP
         id: get_elastic_ip
-        run: echo "::set-output name=elastic_ip::$(terraform output -raw elastic_ip)"
-      
+        run: |
+          echo "::set-output name=elastic_ip::$(terraform output elastic_ip)"
+
       - name: Save Elastic IP to Inventory
         run: echo "[ec2]" > ansible/inventory && echo "${{ steps.get_elastic_ip.outputs.elastic_ip }}" >> ansible/inventory
 
-      - name: show inventory
+      - name: Show Inventory
         run: cat ansible/inventory
 
       - name: Set up SSH key
