@@ -34,6 +34,9 @@ jobs:
           echo [ec2] > ansible/inventory
           terraform output elastic_ip >> ansible/inventory
 
+      - name: show inventory
+        run: cat ansible/inventory
+
       - name: Set up SSH key
         run: |
           mkdir -p ~/.ssh
