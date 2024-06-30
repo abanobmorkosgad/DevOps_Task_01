@@ -22,22 +22,17 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-
+  
       - name: Terraform Init
         run: terraform init
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
 
-      - name: Get Terraform Output
-        id: terraform_output
-        run: terraform output -json > output.json
-
       - name: Save Elastic IP to Inventory
         run: |
-          ELASTIC_IP=$(jq -r '.elastic_ip.value' output.json)
-          echo "[ec2]" > ansible/inventory
-          echo "$ELASTIC_IP" >> ansible/inventory
+          echo [ec2] > ansible/inventory
+          terraform output elastic_ip >> ansible/inventory
 
   ansible:
     name: "Ansible Playbook"
