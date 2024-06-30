@@ -34,29 +34,45 @@ jobs:
           echo [ec2] > ansible/inventory
           terraform output elastic_ip >> ansible/inventory
 
-  ansible:
-    name: "Ansible Playbook"
-    runs-on: ubuntu-latest
-    needs: terraform 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+        - name: Set up SSH key
+          run: |
+            mkdir -p ~/.ssh
+            echo "${{ secrets.PRIVATE_KEY }}" > ~/.ssh/id_rsa
+            chmod 600 ~/.ssh/id_rsa
+  
+        - name: Install Ansible
+          run: |
+            sudo apt-get update
+            sudo apt-get install -y ansible
+  
+        - name: Run Ansible Playbook
+          run: |
+            cd ansible
+            ansible-playbook -i inventory playbook.yaml
 
-      - name: Set up SSH key
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+  # ansible:
+  #   name: "Ansible Playbook"
+  #   runs-on: ubuntu-latest
+  #   needs: terraform 
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
 
-      - name: Install Ansible
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y ansible
+  #     - name: Set up SSH key
+  #       run: |
+  #         mkdir -p ~/.ssh
+  #         echo "${{ secrets.PRIVATE_KEY }}" > ~/.ssh/id_rsa
+  #         chmod 600 ~/.ssh/id_rsa
 
-      - name: Run Ansible Playbook
-        run: |
-          cd ansible
-          ansible-playbook -i inventory playbook.yaml
+  #     - name: Install Ansible
+  #       run: |
+  #         sudo apt-get update
+  #         sudo apt-get install -y ansible
+
+  #     - name: Run Ansible Playbook
+  #       run: |
+  #         cd ansible
+  #         ansible-playbook -i inventory playbook.yaml
 
   # docker:
   #   name: "Deploy with Docker"
