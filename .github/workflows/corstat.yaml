@@ -29,10 +29,13 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve
 
-      - name: Show Inventory
+      - name: create Inventory
         run: |
           echo [ec2] > ansible/inventory
           terraform output elastic_ip | tail -n +2 >> ansible/inventory
+
+      - name: Show Inventory
+        run: cat ansible/inventory
 
       - name: Set up SSH key
         run: |
