@@ -31,7 +31,7 @@ jobs:
 
       - name: create Inventory
         run: |
-          echo [ec2] > ansible/inventory
+          echo "[ec2]" > ansible/inventory
           terraform output elastic_ip | tail -n +2 | sed 's/"//g' >> ansible/inventory
 
       - name: Show Inventory
