@@ -118,9 +118,9 @@
         dest: "{{ item.dest }}"
         remote_src: yes
       with_items:
-        - { src: '../docker/docker-compose.yaml', dest: '~' }
-        - { src: '../docker/Dockerfile', dest: '~'}
-        - { src: '../docker/sonar.properties', dest: '~'}
+        - { src: 'docker/docker-compose.yaml', dest: '~' }
+        - { src: 'docker/Dockerfile', dest: '~'}
+        - { src: 'docker/sonar.properties', dest: '~'}
 
     - name: Run Docker Compose
       command: docker-compose up -d
