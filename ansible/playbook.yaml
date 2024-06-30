@@ -111,3 +111,15 @@
         dest: /usr/bin/docker-compose
         state: link
         force: yes
+
+    - name: Copy multiple files to remote host
+      ansible.builtin.copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+      with_items:
+        - { src: '../docker/docker-compose.yaml', dest: '~' }
+        - { src: '../docker/Dockerfile', dest: '~'}
+        - { src: '../docker/sonar.properties', dest: '~'}
+
+    - name: Run Docker Compose
+      command: docker-compose up -d
