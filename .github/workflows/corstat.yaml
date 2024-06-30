@@ -30,13 +30,7 @@ jobs:
         run: terraform apply -auto-approve
 
       - name: Get Elastic IP
-        id: get_elastic_ip
-        run: |
-          ELASTIC_IP=$(terraform output -raw elastic_ip)
-          echo "::set-output name=elastic_ip::${ELASTIC_IP//\"/}"
-
-      - name: Save Elastic IP to Inventory
-        run: echo "[ec2]" > ansible/inventory && echo "${{ steps.get_elastic_ip.outputs.elastic_ip }}" >> ansible/inventory
+        run: terraform output elastic_ip
 
       - name: Show Inventory
         run: cat ansible/inventory
