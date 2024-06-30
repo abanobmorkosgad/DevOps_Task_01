@@ -123,3 +123,5 @@
 
     - name: Run Docker Compose
       command: docker-compose up -d
+      args:
+        chdir: ~
