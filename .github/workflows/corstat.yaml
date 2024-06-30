@@ -32,7 +32,7 @@ jobs:
       - name: Save Elastic IP to Inventory
         run: |
           echo [ec2] > ansible/inventory
-          terraform output elastic_ip >> ansible/inventory
+          terraform output -raw elastic_ip >> ansible/inventory
 
       - name: show inventory
         run: cat ansible/inventory
