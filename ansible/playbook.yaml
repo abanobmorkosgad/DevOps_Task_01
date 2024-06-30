@@ -116,11 +116,10 @@
       ansible.builtin.copy:
         src: "{{ item.src }}"
         dest: "{{ item.dest }}"
-        remote_src: yes
       with_items:
-        - { src: 'docker/docker-compose.yaml', dest: '~' }
-        - { src: 'docker/Dockerfile', dest: '~'}
-        - { src: 'docker/sonar.properties', dest: '~'}
+        - { src: '../docker/docker-compose.yaml', dest: '~/docker-compose.yaml' }
+        - { src: '../docker/Dockerfile', dest: '~/Dockerfile' }
+        - { src: '../docker/sonar.properties', dest: '~/sonar.properties' }
 
     - name: Run Docker Compose
       command: docker-compose up -d
