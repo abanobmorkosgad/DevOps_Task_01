@@ -28,7 +28,7 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
-
+        
       - name: Save Elastic IP to Inventory
         run: |
           echo [ec2] > ansible/inventory
